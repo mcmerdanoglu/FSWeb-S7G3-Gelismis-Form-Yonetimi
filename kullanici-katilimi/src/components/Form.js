@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./Form.css";
+import axios from "axios";
 
-const emptyForm = { fullName: "", email: "", password: "", termsOS: "" };
+const emptyForm = { fullName: "", email: "", password: "", languages: [] };
 
 function Form(props) {
   const [formData, setFormData] = useState(emptyForm);
@@ -40,6 +41,18 @@ function Form(props) {
     props.addMember(formData);
     setisEditing(false);
     setFormData(emptyForm);
+
+    const postData = {
+      fullName: formData.fullName,
+      email: formData.email,
+      password: formData.password,
+      languages: formData.languages,
+    };
+
+    axios
+      .post("https://reqres.in/api/users", postData)
+      .then((response) => console.log(response.data))
+      .catch((error) => console.error(error));
   };
 
   const handleCheck = (event) => {
@@ -89,31 +102,31 @@ function Form(props) {
           />
         </label>
         <div className="checkBox">
-          <h4>Terms of Service:</h4>
-          <label htmlFor="termOS">
+          <h4>Languages:</h4>
+          <label htmlFor="languages">
             <input
               type="checkbox"
-              name="termsOS"
+              name="languages"
               value="tamil"
               onChange={handleCheck}
               checked={languages.includes("tamil")}
             />
             Tamil
           </label>
-          <label htmlFor="termOS">
+          <label htmlFor="languages">
             <input
               type="checkbox"
-              name="termsOS"
+              name="languages"
               value="tagalog"
               onChange={handleCheck}
               checked={languages.includes("tagalog")}
             />
             Tagalog
           </label>
-          <label htmlFor="termOS">
+          <label htmlFor="languages">
             <input
               type="checkbox"
-              name="termsOS"
+              name="languages"
               value="wolof"
               onChange={handleCheck}
               checked={languages.includes("wolof")}

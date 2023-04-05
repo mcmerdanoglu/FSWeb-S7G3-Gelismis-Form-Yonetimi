@@ -10,19 +10,19 @@ function App() {
       fullName: "Grotesque",
       email: "grotesque@test.com",
       password: "1111",
-      termsOS: ["wolof ", "tamil"],
+      languages: ["wolof ", "tamil"],
     },
     {
       fullName: "Burlesque",
       email: "burlesque@test.com",
       password: "2222",
-      termsOS: ["wolof ", "tamil"],
+      languages: ["wolof ", "tamil"],
     },
     {
       fullName: "Baroque",
       email: "baroque@test.com",
       password: "3333",
-      termsOS: ["wolof ", "tamil"],
+      languages: ["wolof ", "tamil"],
     },
   ]);
 
@@ -53,7 +53,8 @@ function App() {
                 {member.name} - {member.role} //Tıklayınca amail göndermek için//
               </a> */}
               <a className="App-link" href={`mailto:${member.email}`}>
-                {member.fullName} - {member.password} - {member.termsOS}
+                {member.fullName} - {member.password} -{" "}
+                {member.languages.map((lang) => lang)}
               </a>
               <button onClick={() => editHelper(member, i)}>Edit</button>
             </li>
