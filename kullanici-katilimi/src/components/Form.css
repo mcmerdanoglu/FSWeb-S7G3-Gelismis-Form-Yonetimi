@@ -1,0 +1,38 @@
+.form {
+  font-family: sans-serif;
+  text-align: center;
+  align-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  border: solid violet;
+  border-radius: 20px;
+  min-height: 25rem;
+  width: 15rem;
+  background-image: url("I:\GITDOSYALARI\fsweb-s7g2-team-builder\public\logo512.png");
+  background-position: center;
+}
+
+.form-line {
+  padding: 6px 0;
+}
+
+h2 {
+  justify-items: flex-start;
+  text-decoration: wavy;
+  border: solid rgb(81, 126, 139);
+  padding: 10px;
+  background-color: rgb(81, 126, 139);
+  color: aliceblue;
+}
+
+label {
+  font-weight: bold;
+}
+
+.submit {
+  margin-top: 2rem;
+  padding: 1rem;
+  font-weight: bold;
+  font-size: larger;
+}
