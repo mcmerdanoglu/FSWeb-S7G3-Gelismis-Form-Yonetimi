@@ -10,19 +10,19 @@ function App() {
       fullName: "Grotesque",
       email: "grotesque@test.com",
       password: "1111",
-      languages: ["wolof ", "tamil"],
+      languages: ["wolof", "tamil"],
     },
     {
       fullName: "Burlesque",
       email: "burlesque@test.com",
       password: "2222",
-      languages: ["wolof ", "tamil"],
+      languages: ["wolof", "tamil"],
     },
     {
       fullName: "Baroque",
       email: "baroque@test.com",
       password: "3333",
-      languages: ["wolof ", "tamil"],
+      languages: ["wolof", "tamil"],
     },
   ]);
 
@@ -49,12 +49,14 @@ function App() {
         {members.map((member, i) => {
           return (
             <li key={i}>
-              {/* <a className="App-link" href={`mailto:${member.email}`}>
-                {member.name} - {member.role} //Tıklayınca amail göndermek için//
-              </a> */}
-              <a className="App-link" href={`mailto:${member.email}`}>
+              <a
+                className="App-link"
+                href={
+                  `mailto:${member.email}` /*Tıklayınca email göndermek için*/
+                }
+              >
                 {member.fullName} - {member.password} -{" "}
-                {member.languages.map((lang) => lang)}
+                {member.languages.join(", ")}
               </a>
               <button onClick={() => editHelper(member, i)}>Edit</button>
             </li>

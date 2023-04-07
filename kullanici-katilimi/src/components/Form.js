@@ -16,24 +16,30 @@ function Form(props) {
   }, [props.editMode]);
 
   const handleChange = (event) => {
-    console.log(event.target.value);
-    const newFormData = {
-      ...formData,
-      [event.target.name]: event.target.value,
-    };
-    setFormData(newFormData);
+    const { value, type, name } = event.target;
+    console.log(value);
 
-    // let newLanguages;
-    // if (languages.includes(event.target.value)) {
-    //   // zaten işaretli, arrayden çıkar
-    //   newLanguages = languages.filter(
-    //     (language) => language !== event.target.value
-    //   );
-    // } else {
-    //   //  işaretli değil, arraye ekle
-    //   newLanguages = [...languages, event.target.value];
-    // }
-    // setLanguages(newLanguages);
+    if (type === "checkbox") {
+      let newLanguages;
+      if (formData.languages.includes(value)) {
+        // zaten işaretli, arrayden çıkar
+        newLanguages = formData.languages.filter((lang) => lang !== value);
+      } else {
+        //  işaretli değil, arraye ekle
+        newLanguages = [...formData.languages, value];
+      }
+      //checkFormErrors(name, newLanguages); // YUP
+      setFormData({
+        ...formData,
+        [name]: newLanguages,
+      });
+    } else {
+      //checkFormErrors(name, value); // YUP
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
 
   const handleSubmit = (event) => {
@@ -53,19 +59,6 @@ function Form(props) {
       .post("https://reqres.in/api/users", postData)
       .then((response) => console.log(response.data))
       .catch((error) => console.error(error));
-  };
-
-  const handleCheck = (event) => {
-    const { value } = event.target;
-    let newLanguages;
-    if (languages.includes(value)) {
-      // zaten işaretli, arrayden çıkar
-      newLanguages = languages.filter((language) => language !== value);
-    } else {
-      //  işaretli değil, arraye ekle
-      newLanguages = [...languages, value];
-    }
-    setLanguages(newLanguages);
   };
 
   console.log("languages:", languages);
@@ -108,8 +101,8 @@ function Form(props) {
               type="checkbox"
               name="languages"
               value="tamil"
-              onChange={handleCheck}
-              checked={languages.includes("tamil")}
+              onChange={handleChange}
+              checked={formData.languages.includes("tamil")}
             />
             Tamil
           </label>
@@ -118,8 +111,8 @@ function Form(props) {
               type="checkbox"
               name="languages"
               value="tagalog"
-              onChange={handleCheck}
-              checked={languages.includes("tagalog")}
+              onChange={handleChange}
+              checked={formData.languages.includes("tagalog")}
             />
             Tagalog
           </label>
@@ -128,8 +121,8 @@ function Form(props) {
               type="checkbox"
               name="languages"
               value="wolof"
-              onChange={handleCheck}
-              checked={languages.includes("wolof")}
+              onChange={handleChange}
+              checked={formData.languages.includes("wolof")}
             />
             Wolof
           </label>
