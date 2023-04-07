@@ -45,6 +45,7 @@ function App() {
 
   return (
     <div className="App App-header">
+      <h2>Member List</h2>
       <ul>
         {members.map((member, i) => {
           return (

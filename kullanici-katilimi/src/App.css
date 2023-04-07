@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  box-sizing: border-box;
   /*background-color: rgb(107, 44, 110);*/
   /*height: 100vh;*/
 }
@@ -26,6 +27,13 @@
   color: white;
 }
 
+.App-header h2 {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0.4rem;
+  border: solid violet;
+  border-radius: 20px;
+}
 .App-link {
   color: #61dafb;
 }

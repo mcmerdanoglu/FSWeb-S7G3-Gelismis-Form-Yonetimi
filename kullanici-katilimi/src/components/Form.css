@@ -17,13 +17,15 @@
   padding: 6px 0;
 }
 
-h2 {
+.form h2 {
   justify-items: flex-start;
   text-decoration: wavy;
   border: solid rgb(81, 126, 139);
-  padding: 10px;
+  padding: 1rem;
   background-color: rgb(81, 126, 139);
   color: aliceblue;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
 }
 
 label {
@@ -35,4 +37,6 @@ label {
   padding: 1rem;
   font-weight: bold;
   font-size: larger;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
