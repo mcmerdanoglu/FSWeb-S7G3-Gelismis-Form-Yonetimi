@@ -1,19 +1,73 @@
 import React, { useState, useEffect } from "react";
 import "./Form.css";
 import axios from "axios";
+import * as Yup from "yup";
 
 const emptyForm = { fullName: "", email: "", password: "", languages: [] };
+
+const formSchema = Yup.object().shape({
+  fullName: Yup.string()
+    .required("İsim alanı zorunludur")
+    .min(3, "İsim en az 3 karakter olmalı"),
+  email: Yup.string()
+    .email("eposta alanında bir hata olabilir mi?")
+    .required("eposta zorunlu"),
+  password: Yup.string()
+    .min(6, "şifre en az 6 hane olmalı")
+    .required("şifre zorunlu"),
+  languages: Yup.array()
+    .min(1, "en az 1 dil seçin")
+    .max(2, "en çok 2 dil seçin"),
+});
 
 function Form(props) {
   const [formData, setFormData] = useState(emptyForm);
   const [isEditing, setisEditing] = useState(false);
   const [languages, setLanguages] = useState([]);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [errors, setErrors] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+    languages: "",
+  });
 
   useEffect(() => {
     console.log("Ak Gandalf oldum");
     props.editMode ? setFormData(props.editMode) : setFormData(emptyForm);
     props.editMode ? setisEditing(true) : setisEditing(false);
   }, [props.editMode]);
+
+  useEffect(() => {
+    formSchema.isValid(formData).then((valid) => setIsButtonDisabled(!valid));
+  }, [formData]);
+
+  const handleReset = () => {
+    setFormData(emptyForm);
+    setErrors({
+      fullName: "",
+      email: "",
+      password: "",
+      languages: "",
+    });
+  };
+
+  const checkFormErrors = (name, value) => {
+    Yup.reach(formSchema, name)
+      .validate(value)
+      .then(() => {
+        setErrors({
+          ...errors,
+          [name]: "",
+        });
+      })
+      .catch((err) => {
+        setErrors({
+          ...errors,
+          [name]: err.errors[0],
+        });
+      });
+  };
 
   const handleChange = (event) => {
     const { value, type, name } = event.target;
@@ -28,13 +82,13 @@ function Form(props) {
         //  işaretli değil, arraye ekle
         newLanguages = [...formData.languages, value];
       }
-      //checkFormErrors(name, newLanguages); // YUP
+      checkFormErrors(name, newLanguages); // YUP
       setFormData({
         ...formData,
         [name]: newLanguages,
       });
     } else {
-      //checkFormErrors(name, value); // YUP
+      checkFormErrors(name, value); // YUP
       setFormData({
         ...formData,
         [name]: value,
@@ -75,6 +129,9 @@ function Form(props) {
             value={formData.fullName}
             onChange={(event) => handleChange(event)}
           />
+          {errors.fullName !== "" && (
+            <div className="field-error">{errors.fullName}</div>
+          )}
         </label>
         <label htmlFor="email">
           Email:
@@ -84,6 +141,9 @@ function Form(props) {
             value={formData.email}
             onChange={(event) => handleChange(event)}
           />
+          {errors.email !== "" && (
+            <div className="field-error">{errors.email}</div>
+          )}
         </label>
         <label htmlFor="password">
           Password:
@@ -93,6 +153,9 @@ function Form(props) {
             value={formData.password}
             onChange={(event) => handleChange(event)}
           />
+          {errors.password !== "" && (
+            <div className="field-error">{errors.password}</div>
+          )}
         </label>
         <div className="checkBox">
           <h4>Languages:</h4>
@@ -126,8 +189,14 @@ function Form(props) {
             />
             Wolof
           </label>
+          {errors.languages !== "" && (
+            <div className="field-error">{errors.languages}</div>
+          )}
         </div>
-        <button className="submit" type="submit">
+        <button type="reset" onClick={handleReset}>
+          Clear form
+        </button>
+        <button className="submit" type="submit" disabled={isButtonDisabled}>
           {isEditing ? "Edit Member" : "Add New Member"}
         </button>
       </form>
