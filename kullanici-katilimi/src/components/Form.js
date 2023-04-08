@@ -130,7 +130,9 @@ function Form(props) {
             onChange={(event) => handleChange(event)}
           />
           {errors.fullName !== "" && (
-            <div className="field-error">{errors.fullName}</div>
+            <div className="field-error">
+              <span>{errors.fullName}</span>
+            </div>
           )}
         </label>
         <label htmlFor="email">
@@ -142,7 +144,9 @@ function Form(props) {
             onChange={(event) => handleChange(event)}
           />
           {errors.email !== "" && (
-            <div className="field-error">{errors.email}</div>
+            <div className="field-error">
+              <span>{errors.email}</span>
+            </div>
           )}
         </label>
         <label htmlFor="password">
@@ -154,7 +158,9 @@ function Form(props) {
             onChange={(event) => handleChange(event)}
           />
           {errors.password !== "" && (
-            <div className="field-error">{errors.password}</div>
+            <div className="field-error">
+              <span>{errors.password}</span>
+            </div>
           )}
         </label>
         <div className="checkBox">
@@ -190,7 +196,9 @@ function Form(props) {
             Wolof
           </label>
           {errors.languages !== "" && (
-            <div className="field-error">{errors.languages}</div>
+            <div className="field-error">
+              <span data-cy="errorLanguage">{errors.languages}</span>
+            </div>
           )}
         </div>
         <button type="reset" onClick={handleReset}>
